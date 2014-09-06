@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Types>
+  <Type>
+    <Name>Microsoft.Management.Infrastructure.CimInstance#CIM_RegisteredProfile</Name>
+    <Members>
+       <ScriptProperty>
+        <Name>RegisteredOrganizationName</Name>
+        <GetScriptBlock>
+            $org = $this.RegisteredOrganization
+            switch ($org)
+            {
+                1 {"Other"}
+                2 {"DMTF"}
+                3 {"CompTIA"}
+                4 {"Consortium for Service Innovation"}
+                5 {"FAST"}
+                6 {"GGF"}
+                7 {"INTAP"}
+                8 {"itSMF"}
+                9 {"NAC"}
+                10 {"Northwest Energy Efficiency Alliance"}
+                11 {"SNIA"}
+                12 {"TM Forum"}
+                13 {"The Open Group"}
+                14 {"ANSI"}
+                15 {"IEEE"}
+                16 {"IETF"}
+                17 {"INCITS"}
+                18 {"ISO"}
+                19 {"W3C"}
+                20 {"OGF"}
+                21 {"The Green Grid"}
+                default {"Undefined"}                
+            }
+        </GetScriptBlock>
+      </ScriptProperty>
+    </Members>
+  </Type>
+  <Type>
+    <Name>Microsoft.Management.Infrastructure.CimInstance#CIM_ComputerSystem</Name>
+    <Members>
+      <ScriptProperty>
+        <Name>DedicatedNames</Name>
+        <GetScriptBlock>
+            $dedicatedValues = "Not Dedicated", "Unknown", "Other", "Storage", 
+                "Router", "Switch", "Layer 3 Switch", 
+                "Central Office Switch", "Hub", "Access Server", 
+                "Firewall", "Print", "I/O", "Web Caching", "Management", 
+                "Block Server", "File Server", "Mobile User Device", 
+                "Repeater", "Bridge/Extender", "Gateway", 
+                "Storage Virtualizer", "Media Library", "ExtenderNode", 
+                "NAS Head", "Self-contained NAS", "UPS", "IP Phone", 
+                "Management Controller", "Chassis Manager", 
+                "Host-based RAID controller", "Storage Device Enclosure", 
+                "Desktop", "Laptop", "Virtual Tape Library", 
+                "Virtual Library System", "Network PC/Thin Client", 
+                "FC Switch", "Ethernet Switch"
+
+            $dedicated = @()
+            foreach ($dedicatedType in $this.Dedicated) {
+                if ([int]$dedicatedType -ge $dedicatedValues.Length) {
+                    $dedicatedValue = "Undefined"
+                } else {
+                    $dedicatedValue = $dedicatedValues[$dedicatedType]
+                }
+                $dedicated += $dedicatedValue
+            }
+            $dedicated
+        </GetScriptBlock>
+      </ScriptProperty>
+      <ScriptProperty>
+        <Name>EnabledStateName</Name>
+        <GetScriptBlock>
+            $enabledStates = "Unknown", "Other", "Enabled", "Disabled", 
+                "Shutting Down", "Not Applicable", "Enabled but Offline", 
+                "In Test", "Deferred", "Quiesce", "Starting"
+
+            if ([int]$this.enabledState -ge $enabledStates.Length) {
+                  $enabledState = "Undefined"
+            } else {
+                  $enabledState = $enabledStates[$this.enabledState]
+            }
+            $enabledState
+        </GetScriptBlock>
+      </ScriptProperty>
+      <ScriptProperty>
+        <Name>RequestedStateName</Name>
+        <GetScriptBlock>
+            $requestedStates = "Unknown", "Enabled", "Disabled", "Shut Down", 
+                "No Change", "Offline", "Test", "Deferred", "Quiesce", 
+                "Reboot", "Reset", "Not Applicable"
+
+            if ([int]$this.requestedState -ge $requestedStates.Length) {
+                  $requestedState = "Undefined"
+            } else {
+                  $requestedState = $requestedStates[$this.requestedState]
+            }
+            $requestedState
+        </GetScriptBlock>
+      </ScriptProperty>
+    </Members>
+  </Type>
+  <Type>
+    <Name>Microsoft.Management.Infrastructure.CimInstance#CIM_OperatingSystem</Name>
+    <Members>
+       <ScriptProperty>
+        <Name>OSTypeName</Name>
+        <GetScriptBlock>
+            $osTypes = "Unknown", "Other", "MACOS", "ATTUNIX", "DGUX", 
+              "DECNT", "Tru64 UNIX", "OpenVMS", "HPUX", "AIX", 
+              "MVS", "OS400", "OS/2", "JavaVM", "MSDOS", 
+              "WIN3x", "WIN95", "WIN98", "WINNT", "WINCE", 
+              "NCR3000", "NetWare", "OSF", "DC/OS", 
+              "Reliant UNIX", "SCO UnixWare", "SCO OpenServer", 
+              "Sequent", "IRIX", "Solaris", 
+              "SunOS", "U6000", "ASERIES", "HP NonStop OS", "HP NonStop OSS", 
+              "BS2000", "LINUX", "Lynx", "XENIX", "VM", 
+              "Interactive UNIX", "BSDUNIX", "FreeBSD", 
+              "NetBSD", "GNU Hurd", "OS9", "MACH Kernel", "Inferno", 
+              "QNX", "EPOC", "IxWorks", "VxWorks", 
+              "MiNT", "BeOS", "HP MPE", "NextStep", "PalmPilot", 
+              "Rhapsody", "Windows 2000", "Dedicated", 
+              "OS/390", "VSE", "TPF", "Windows (R) Me", 
+              "Caldera Open UNIX", "OpenBSD", "Not Applicable", 
+              "Windows XP", "z/OS", "Microsoft Windows Server 2003", 
+              "Microsoft Windows Server 2003 64-Bit", 
+              "Windows XP 64-Bit", "Windows XP Embedded", 
+              "Windows Vista", "Windows Vista 64-Bit", 
+              "Windows Embedded for Point of Service", 
+              "Microsoft Windows Server 2008", 
+              "Microsoft Windows Server 2008 64-Bit", "FreeBSD 64-Bit", 
+              "RedHat Enterprise Linux", 
+              "RedHat Enterprise Linux 64-Bit", 
+              "Solaris 64-Bit", "SUSE", "SUSE 64-Bit", "SLES", 
+              "SLES 64-Bit", "Novell OES", "Novell Linux Desktop", 
+              "Sun Java Desktop System", "Mandriva", 
+              "Mandriva 64-Bit", "TurboLinux", 
+              "TurboLinux 64-Bit", "Ubuntu", "Ubuntu 64-Bit", "Debian", 
+              "Debian 64-Bit", "Linux 2.4.x", "Linux 2.4.x 64-Bit", 
+              "Linux 2.6.x", "Linux 2.6.x 64-Bit", 
+              "Linux 64-Bit", "Other 64-Bit", 
+              "Microsoft Windows Server 2008 R2", "VMware ESXi", 
+              "Microsoft Windows 7", "CentOS 32-bit", "CentOS 64-bit", 
+              "Oracle Enterprise Linux 32-bit", 
+              "Oracle Enterprise Linux 64-bit", 
+              "eComStation 32-bitx", 
+              "Microsoft Windows Server 2011", 
+              "Microsoft Windows Server 2012", "Microsoft Windows 8", 
+              "Microsoft Windows 8 64-bit", "Microsoft Windows Server 2012 R2"
+
+            if ([int]$this.osType -gt $osTypes.Length) {
+                  $osType = "Undefined"
+            } else {
+                  $osType = $osTypes[$this.osType]
+            }
+            $osType
+        </GetScriptBlock>
+      </ScriptProperty>
+      <ScriptProperty>
+        <Name>EnabledStateName</Name>
+        <GetScriptBlock>
+            $enabledStates = "Unknown", "Other", "Enabled", "Disabled", 
+                "Shutting Down", "Not Applicable", "Enabled but Offline", 
+                "In Test", "Deferred", "Quiesce", "Starting"
+
+            if ([int]$this.enabledState -ge $enabledStates.Length) {
+                  $enabledState = "Undefined"
+            } else {
+                  $enabledState = $enabledStates[$this.enabledState]
+            }
+            $enabledState
+        </GetScriptBlock>
+      </ScriptProperty>
+    </Members>
+  </Type>
+  <Type>
+    <Name>Microsoft.Management.Infrastructure.CimInstance#CIM_NumericSensor</Name>
+    <Members>
+      <ScriptProperty>
+        <Name>EnabledStateName</Name>
+        <GetScriptBlock>
+            if ($this.CommunicationStatus -ne 3 -and $this.CommunicationStatus -ne 4) {
+                $enabledStates = "Unknown", "Other", "Enabled", "Disabled", 
+                    "Shutting Down", "Not Applicable", "Enabled but Offline", 
+                    "In Test", "Deferred", "Quiesce", "Starting"
+
+                if ([int]$this.enabledState -ge $enabledStates.Length) {
+                      $enabledState = "Undefined"
+                } else {
+                      $enabledState = $enabledStates[$this.enabledState]
+                }
+                $enabledState
+            }
+        </GetScriptBlock>
+      </ScriptProperty>
+      <ScriptProperty>
+        <Name>BaseUnitsName</Name>
+        <GetScriptBlock>
+            $baseUnits = "Unknown", "Other", "Degrees C", "Degrees F", 
+              "Degrees K", "Volts", "Amps", "Watts", "Joules", 
+              "Coulombs",
+              "VA", "Nits", "Lumens", "Lux", 
+              "Candelas", "kPa", "PSI", "Newtons", "CFM", "RPM", 
+              "Hertz", "Seconds", "Minutes", "Hours", 
+              "Days", "Weeks", "Mils", "Inches", "Feet", "Cubic Inches", 
+              "Cubic Feet", "Meters", 
+              "Cubic Centimeters", "Cubic Meters", "Liters", 
+              "Fluid Ounces", "Radians", "Steradians", "Revolutions", 
+              "Cycles", 
+              "Gravities", "Ounces", "Pounds", 
+              "Foot-Pounds", "Ounce-Inches", "Gauss", "Gilberts", 
+              "Henries", "Farads", "Ohms", 
+              "Siemens", 
+              "Moles", "Becquerels", "PPM (parts/million)", "Decibels", 
+              "DbA", "DbC", "Grays", "Sieverts", 
+              "Color Temperature Degrees K", 
+              "Bits", 
+              "Bytes", "Words (data)", "DoubleWords", "QuadWords", 
+              "Percentage", "Pascals"
+
+            if ([int]$this.BaseUnits -ge $baseUnits.Length) {
+                  $baseUnit = "Undefined"
+            } else {
+                  $baseUnit = $baseUnits[$this.baseUnits]
+            }
+            $baseUnit
+        </GetScriptBlock>
+      </ScriptProperty>
+      <ScriptProperty>
+        <Name>RateUnitsName</Name>
+        <GetScriptBlock>
+            $rateUnits = "", "Per MicroSecond", "Per MilliSecond", 
+              "Per Second", "Per Minute", "Per Hour", "Per Day", 
+              "Per Week", "Per Month", "Per Year"
+
+            if ([int]$this.RateUnits -ge $rateUnits.Length) {
+                  $rateUnit = "Undefined"
+            } else {
+                  $rateUnit = $rateUnits[$this.RateUnits]
+            }
+            $rateUnit
+        </GetScriptBlock>
+      </ScriptProperty>
+      <ScriptProperty>
+        <Name>SensorTypeName</Name>
+        <GetScriptBlock>
+            $sensorTypes = "Unknown", "Other", "Temperature", "Voltage", 
+              "Current", "Tachometer", "Counter", "Switch", "Lock", 
+              "Humidity", "Smoke Detection", "Presence", "Air Flow", 
+              "Power Consumption", "Power Production", "Pressure", 
+              "Intrusion"
+
+            if ([int]$this.sensorType -ge $sensorTypes.Length) {
+                  $sensorType = "Undefined"
+            } else {
+                  $sensorType = $sensorTypes[$this.sensorType]
+            }
+            $sensorType
+        </GetScriptBlock>
+      </ScriptProperty>
+      <ScriptProperty>
+        <Name>ComputedReading</Name>
+        <GetScriptBlock>
+            if ($this.CommunicationStatus -ne 3 -and $this.CommunicationStatus -ne 4) {
+                ([System.Single]::Parse($this.CurrentReading) * [Math]::Pow(10,$this.UnitModifier)).ToString() + " " + `
+                    $this.BaseUnitsName + " " + $this.RateUnitsName
+            }
+        </GetScriptBlock>
+      </ScriptProperty>
+      <ScriptProperty>
+        <Name>CommunicationStatusName</Name>
+        <GetScriptBlock>
+            switch ($this.CommunicationStatus)
+            {
+                0 {"Unknown"}
+                1 {"Unavailable"}
+                2 {"OK"}
+                3 {"Lost"}
+                4 {"No Contact"}
+                default {"Undefined"}                
+            }
+        </GetScriptBlock>
+      </ScriptProperty>
+    </Members>
+  </Type>
+  <Type>
+    <Name>Microsoft.Management.Infrastructure.CimInstance#CIM_BootSourceSetting</Name>
+    <Members>
+       <ScriptProperty>
+        <Name>FailThroughSupportedName</Name>
+        <GetScriptBlock>
+            switch ($this.FailThroughSupported)
+            {
+                0 {"Unknown"}
+                1 {"Yes"}
+                2 {"No"}
+                default {"Undefined"}                
+            }
+        </GetScriptBlock>
+      </ScriptProperty>
+    </Members>
+  </Type>
+  <Type>
+    <Name>Microsoft.Management.Infrastructure.CimInstance#CIM_RecordLog</Name>
+    <Members>
+       <ScriptProperty>
+        <Name>LogStateName</Name>
+        <GetScriptBlock>
+            switch ($this.LogState)
+            {
+                0 {"Unknown"}
+                2 {"Normal"}
+                3 {"Erasing"}
+                4 {"N/A"}
+                default {"Undefined"}                
+            }
+        </GetScriptBlock>
+      </ScriptProperty>
+      <ScriptProperty>
+        <Name>EnabledStateName</Name>
+        <GetScriptBlock>
+            $enabledStates = "Unknown", "Other", "Enabled", "Disabled", 
+                "Shutting Down", "Not Applicable", "Enabled but Offline", 
+                "In Test", "Deferred", "Quiesce", "Starting"
+
+            if ([int]$this.enabledState -ge $enabledStates.Length) {
+                  $enabledState = "Undefined"
+            } else {
+                  $enabledState = $enabledStates[$this.enabledState]
+            }
+            $enabledState
+        </GetScriptBlock>
+      </ScriptProperty>
+       <ScriptProperty>
+        <Name>OverwritePolicyName</Name>
+        <GetScriptBlock>
+            switch ($this.OverwritePolicy)
+            {
+                0 {"Unknown"}
+                2 {"WrapsWhenFull"}
+                7 {"NeverOverwrite"}
+                8 {"Archives"}
+                default {"Undefined"}                
+            }
+        </GetScriptBlock>
+      </ScriptProperty>
+    </Members>
+  </Type>
+  <Type>
+    <Name>Microsoft.Management.Infrastructure.CimInstance#CIM_SoftwareIdentity</Name>
+    <Members>
+       <ScriptProperty>
+        <Name>ComputedVersionString</Name>
+        <GetScriptBlock>
+            [string] $versionString = $this.VersionString
+            if ($versionString.Length -eq 0) {
+                $versionString = $this.MajorVersion
+                if ($this.MinorVersion -ne $null) {
+                    $versionString += "." + $this.MinorVersion
+                    if ($this.RevisionNumber -ne $null) {
+                        $versionString += "." + $this.RevisionNumber
+                        if ($this.BuildNumber -ne $null) {
+                            $versionString += "." + $this.BuildNumber
+                        }
+                    }
+                }
+            }
+            $versionString
+        </GetScriptBlock>
+      </ScriptProperty>
+       <ScriptProperty>
+        <Name>SoftwareElementName</Name>
+        <GetScriptBlock>
+            if ($this.ElementName.Length -eq 0) {
+                $this.InstanceID
+            } else {
+                $this.ElementName
+            }
+        </GetScriptBlock>
+      </ScriptProperty>
+    </Members>
+  </Type>
+  <Type>
+    <Name>Microsoft.Management.Infrastructure.CimInstance#CIM_LogEntry</Name>
+    <Members>
+       <ScriptProperty>
+        <Name>PerceivedSeverityName</Name>
+        <GetScriptBlock>
+            switch ($this.PerceivedSeverity)
+            {
+                0 {"Unknown"}
+                1 {"Other"}
+                2 {"Information"}
+                3 {"Degraded/Warning"}
+                4 {"Minor"} 
+                5 {"Major"} 
+                6 {"Critical"}
+                7 {"Fatal/NonRecoverable"}
+                default {"Undefined"}                
+            }
+        </GetScriptBlock>
+      </ScriptProperty>
+    </Members>
+  </Type>
+  <Type>
+    <Name>Microsoft.Management.Infrastructure.CimInstance#CIM_TextRedirectionSAP</Name>
+    <Members>
+      <ScriptProperty>
+        <Name>EnabledStateName</Name>
+        <GetScriptBlock>
+            $enabledStates = "Unknown", "Other", "Enabled", "Disabled", 
+                "Shutting Down", "Not Applicable", "Enabled but Offline", 
+                "In Test", "Deferred", "Quiesce", "Starting"
+
+            if ([int]$this.enabledState -ge $enabledStates.Length) {
+                  $enabledState = "Undefined"
+            } else {
+                  $enabledState = $enabledStates[$this.enabledState]
+            }
+            $enabledState
+        </GetScriptBlock>
+      </ScriptProperty>
+    </Members>
+  </Type>
+</Types>

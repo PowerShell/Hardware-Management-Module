@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Types>
+  <Type>
+    <Name>Microsoft.Management.Infrastructure.CimInstance#CIM_Account</Name>
+    <Members>
+      <ScriptProperty>
+        <Name>EnabledStateName</Name>
+        <GetScriptBlock>
+            $enabledStates = "Unknown", "Other", "Enabled", "Disabled", 
+                "Shutting Down", "Not Applicable", "Offline", 
+                "In Test", "Deferred", "Quiesce", "Starting"
+
+            if ([int]$this.enabledState -ge $enabledStates.Length) {
+                  $enabledState = "Undefined"
+            } else {
+                  $enabledState = $enabledStates[$this.enabledState]
+            }
+            $enabledState
+        </GetScriptBlock>
+      </ScriptProperty>
+      <ScriptProperty>
+        <Name>RequestedStatesSupportedName</Name>
+        <GetScriptBlock>
+            $states = "Undefined", "Undefined", "Enabled", "Disabled", 
+                "Undefined", "Undefined", "Offline"
+
+            [string[]] $supportedStates = @()
+
+            foreach ($supportedState in $this.RequestedStatesSupported) {
+                if ([int]$supportedState -ge $states.Length) {
+                    $supportedStates += "Undefined"
+                } else {
+                    $supportedStates += $states[$supportedState]
+                }
+            }
+            $supportedStates
+        </GetScriptBlock>
+      </ScriptProperty>
+    </Members>
+  </Type>
+</Types>

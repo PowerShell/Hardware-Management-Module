@@ -1,0 +1,38 @@
+﻿v1.0 - 8/9/2012 - Steve Lee
+    - Initial release
+v1.0.1 - 8/10/2012 - Steve Lee
+    - Updated logic on retrieving CIM_ComputerSystem to interop with Dell iDrac 
+    where more than one CIM_ECP association to a Profile exists
+    - Added RegisteredOrganization parameter to get-RegisteredProfile since some
+    OEMs use the same Profile name although not implementing the DMTF Profile
+    - Updated all occurrences of selecting RegisteredProfile to only use DMTF
+v1.0.2 - 8/13/2012 - Steve Lee
+    - Changed CimSession parameter to not be mandatory, now defaults to localmachine
+    based on suggestion from Shay Levy.  Most functions won't work on a Windows box
+    without additional WMI Providers installed, but some (like get-registeredprofile)
+    will work.
+    - Changed all exceptions/errors to warnings.  If one machine in an array of machines
+    fails or doesn't support a Profile, no need to throw a terminating error
+v1.0.3 - 11/27/2012 - Steve Lee
+    - Addressed feedback from Hemal Shah and Stephen Hurd
+    - Fixed Computed Reading output so that the units show up
+    - Added PerceivedSeverityName value mapping to CIM_LogEntry
+    - Added AvailablePowerStates to CIM_ComputerSystem instance
+    - Fixed help for Set-BootOrder not working
+    - Renamed BootOrder BootSupport value names to be more ITPro friendly
+v1.1.0 - 9/3/2013 - Steve Lee
+    - Fixed some grammar issues in the help text
+    - Insert CIM typename so that formatting applies for derived instances
+    - Added initial support for Text Console Redirection Profile
+    - Added support for Simple Identity Management Profile
+    - Added support for Role Based Authorization Profile
+    - Added CIM cmdlet prefix to module manifest
+    - Added ShouldProcess support to Set-PowerState, Clear-RecordLog, Remove-Account
+v1.2.0 - 12/19/2013 - Steve Lee
+    - Added support/preference for Physical Computer System View Profile
+    - Added Test-RMCPConnection cmdlet for discovery as part of DASH
+    - Added CimSession/UserID parameterset to *-Account cmdlets
+    - Added CimSession/InstanceID parameterset to Clear-RecordLog and Get-LogEntry cmdlets
+    - Changed Get-MD5Hash to be private function
+v1.2.1 - 9/5/2014 - Steve Lee
+    - Updated license to MIT license.  Published to GitHub for community development.
